@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Index{% endblock %}
+{% block css %}
+<style type="text/css" media="all">
+  .leftside img{
+  animation: corona 3s linear infinite;
+}
+@keyframes corona{
+  0%{transform:rotate(0);}
+  100%{transform:rotate(360deg);}
+}
+.subsection{
+  background: #eff5f5;
+}
+</style>
+{% endblock %}
+{% block body %}
+
+<section class="header container-fluid" id="main">
+  <div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-12 order-lg-1 order-sm-2 order-md-1">
+      <div class="leftside d-flex align-items-center w-100 h-100 justify-content-center">
+        <img src="{% static 'app/images/corona.png' %}" alt="home img" width="300" height="300"/>
+      </div>
+    </div>
+    <div class="col-lg-7 col-md-7 col-sm-12 order-sm-1 order-md-2 order-lg-2">
+      <div class="rightside d-flex align-items-center w-100 h-100 justify-content-center">
+        <h2>Let's stay safe & Fight Together Against Corona Virus</h2>
+      </div>
+    </div>
+  </div>
+  <h4 class="text-center text-uppercase text-danger">Latest updates</h4>
+  <div class="updates d-flex justify-content-between align-items-center text-center">
+    <div class="text-center">
+      <h2 class="text-warning">{{ updates.active }}</h2>
+      <p>Current Active Cases</p>
+    </div>
+    <div>
+      <h2 class="text-warning">{{ updates.recover }}</h2>
+      <p>Current Recover Cases</p>
+    </div>
+    <div>
+      <h2 class="text-warning">{{ updates.death }}</h2>
+      <p>Current Death Cases</p>
+    </div>
+  </div>
+</section>
+<section id="about" class="container-fluid subsection">
+  <h2 class="text-center text-uppercase">Corona</h2>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <img class="img-fluid" width="500" height="500" src="{% static 'app/images/about.jpg' %}" alt="corona" />
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <p>Coronaviruses are a group of related viruses that cause diseases in mammals and birds. In humans, coronaviruses cause respiratory tract infections that can be mild, such as some cases of the common cold (among other possible causes, predominantly rhinoviruses), and others that can be lethal, such as SARS, MERS, and COVID-19. Symptoms in other species vary: in chickens, they cause an upper respiratory tract disease, while in cows and pigs they cause diarrhea. There are yet to be vaccines or antiviral drugs to prevent or treat human coronavirus infections.</p>
+    </div>
+  </div>
+</section>
+<section id="symptoms" class="container-fluid">
+  <h2 class="text-center text-uppercase">Symptoms</h2>
+  <div class="row">
+    {% for symptom in symptoms %}
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <figure class="text-center">
+        <img src="{{media_url}}{{symptom.img}}" width="100" height="100" alt="" />
+        <figcaption>{{symptom.sym}}</figcaption>
+      </figure>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="subsection" id="contact">
+  <h2 class="text-center text-uppercase">Contact</h2>
+  <form action="{% url 'index' %}" method="post" accept-charset="utf-8" class="container">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" value="" class="form-control" placeholder="Name"/>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="contact">Contact</label>
+          <input type="text" name="contact" id="contact" value="" class="form-control" placeholder="Contact"/>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" name="email" id="email" value="" class="form-control" placeholder="Email Address"/>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea name="message" id=message rows="5" class="form-control" placeholder="Message"></textarea>  
+      </div>
+    </div>
+    <div class="form-group pb-3 text-center">
+      <input type="submit" class="btn btn-primary" value="SUBMIT" />
+    </div>
+  </form>
+</section>
+
+{% endblock %}
+
+
+
+
